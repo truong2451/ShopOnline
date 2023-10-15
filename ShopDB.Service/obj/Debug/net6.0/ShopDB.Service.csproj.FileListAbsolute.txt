@@ -1,0 +1,11 @@
+D:\Net API\ShopDB\ShopDB.Service\bin\Debug\net6.0\ShopDB.Service.deps.json
+D:\Net API\ShopDB\ShopDB.Service\bin\Debug\net6.0\ShopDB.Service.dll
+D:\Net API\ShopDB\ShopDB.Service\bin\Debug\net6.0\ShopDB.Service.pdb
+D:\Net API\ShopDB\ShopDB.Service\obj\Debug\net6.0\ShopDB.Service.GeneratedMSBuildEditorConfig.editorconfig
+D:\Net API\ShopDB\ShopDB.Service\obj\Debug\net6.0\ShopDB.Service.AssemblyInfoInputs.cache
+D:\Net API\ShopDB\ShopDB.Service\obj\Debug\net6.0\ShopDB.Service.AssemblyInfo.cs
+D:\Net API\ShopDB\ShopDB.Service\obj\Debug\net6.0\ShopDB.Service.csproj.CoreCompileInputs.cache
+D:\Net API\ShopDB\ShopDB.Service\obj\Debug\net6.0\ShopDB.Service.dll
+D:\Net API\ShopDB\ShopDB.Service\obj\Debug\net6.0\refint\ShopDB.Service.dll
+D:\Net API\ShopDB\ShopDB.Service\obj\Debug\net6.0\ShopDB.Service.pdb
+D:\Net API\ShopDB\ShopDB.Service\obj\Debug\net6.0\ref\ShopDB.Service.dll

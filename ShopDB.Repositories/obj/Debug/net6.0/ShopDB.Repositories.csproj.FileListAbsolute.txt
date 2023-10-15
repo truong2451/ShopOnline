@@ -1,0 +1,14 @@
+D:\Net API\ShopDB\ShopDB.Repositories\bin\Debug\net6.0\ShopDB.Repositories.deps.json
+D:\Net API\ShopDB\ShopDB.Repositories\bin\Debug\net6.0\ShopDB.Repositories.runtimeconfig.json
+D:\Net API\ShopDB\ShopDB.Repositories\bin\Debug\net6.0\ShopDB.Repositories.dll
+D:\Net API\ShopDB\ShopDB.Repositories\bin\Debug\net6.0\ShopDB.Repositories.pdb
+D:\Net API\ShopDB\ShopDB.Repositories\obj\Debug\net6.0\ShopDB.Repositories.csproj.AssemblyReference.cache
+D:\Net API\ShopDB\ShopDB.Repositories\obj\Debug\net6.0\ShopDB.Repositories.GeneratedMSBuildEditorConfig.editorconfig
+D:\Net API\ShopDB\ShopDB.Repositories\obj\Debug\net6.0\ShopDB.Repositories.AssemblyInfoInputs.cache
+D:\Net API\ShopDB\ShopDB.Repositories\obj\Debug\net6.0\ShopDB.Repositories.AssemblyInfo.cs
+D:\Net API\ShopDB\ShopDB.Repositories\obj\Debug\net6.0\ShopDB.Repositories.csproj.CoreCompileInputs.cache
+D:\Net API\ShopDB\ShopDB.Repositories\obj\Debug\net6.0\ShopDB.Repositories.dll
+D:\Net API\ShopDB\ShopDB.Repositories\obj\Debug\net6.0\refint\ShopDB.Repositories.dll
+D:\Net API\ShopDB\ShopDB.Repositories\obj\Debug\net6.0\ShopDB.Repositories.pdb
+D:\Net API\ShopDB\ShopDB.Repositories\obj\Debug\net6.0\ShopDB.Repositories.genruntimeconfig.cache
+D:\Net API\ShopDB\ShopDB.Repositories\obj\Debug\net6.0\ref\ShopDB.Repositories.dll

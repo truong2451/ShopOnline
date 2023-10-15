@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "Am3cRGhImPWpWo24a9AVvqM3zJ2j97i8z35whAFHYJU=",
+  "Source": "ShopDB.ShopAPI",
+  "BasePath": "_content/ShopDB.ShopAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
