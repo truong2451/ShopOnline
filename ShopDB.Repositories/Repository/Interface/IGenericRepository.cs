@@ -13,6 +13,6 @@ namespace ShopDB.Repositories.Repository.Interface
         Task<T> Get(object id);
         Task<bool> Delete(object id);
         Task<bool> Add(T item);
-        Task<bool> Update(T item);
+        Task<bool> Update(object id, T item);
     }
 }

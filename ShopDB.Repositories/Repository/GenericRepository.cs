@@ -13,11 +13,11 @@ namespace ShopDB.Repositories.Repository
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
         protected readonly ShopDBContext context;
-        protected readonly DbSet<T> dbSet;  
+        protected readonly DbSet<T> dbSet;
 
         public GenericRepository(ShopDBContext context)
         {
-            if(context == null)
+            if (context == null)
             {
                 this.context = context;
             }
@@ -32,7 +32,7 @@ namespace ShopDB.Repositories.Repository
                 await context.SaveChangesAsync();
                 return true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
@@ -56,7 +56,7 @@ namespace ShopDB.Repositories.Repository
                 throw new Exception(ex.Message);
             }
         }
-      
+
         public async Task<bool> Update(object id, T item)
         {
             try

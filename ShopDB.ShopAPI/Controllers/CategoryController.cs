@@ -11,7 +11,7 @@ namespace ShopDB.ShopAPI.Controllers
     {
         private readonly ICategoryService categoryService;
         private readonly IMapper mapper;
-        
+
         public CategoryController(ICategoryService categoryService, IMapper mapper)
         {
             this.categoryService = categoryService;

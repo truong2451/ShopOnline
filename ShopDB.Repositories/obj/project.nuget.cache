@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "DNuGaxpOEArItIQ9qZtBNyja7TrKU9tdaJaXGwSFWjEiTe3p1eVwYM5xRcKDpDg+8C+Q/925hpUMG85MoOKrlw==",
+  "dgSpecHash": "TuIbCdWdMVXR/wHeJxbkKRENm7a7qD5P8o8nMEuuqE2DQhH0WtMPVlZDac9vXIM5MbQJd6XExD9lH0VTmupsHQ==",
   "success": true,
-  "projectFilePath": "D:\\Net API\\ShopDB\\ShopDB.Repositories\\ShopDB.Repositories.csproj",
+  "projectFilePath": "D:\\Git Repository\\ShopOnline\\ShopDB.Repositories\\ShopDB.Repositories.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Admin\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",

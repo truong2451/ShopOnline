@@ -11,8 +11,9 @@ namespace ShopDB.Service.Interface
     {
         IEnumerable<Customer> GetAllCustomer();
         Task<Customer> GetCustomerById(Guid id);
-        Task<bool> AddCustomer(Customer customer);
+        Task<bool> SignUp(Customer customer);
         Task<bool> UpdateCustomer(Guid id, Customer customer);
         Task<bool> DeleteCustomer(Guid id);
+        Task<bool> ChangePassword(Guid id, string oldPassword, string newPassword);
     }
 }

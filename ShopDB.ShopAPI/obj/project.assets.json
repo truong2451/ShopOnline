@@ -2444,11 +2444,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Net API\\ShopDB\\ShopDB.ShopAPI\\ShopDB.ShopAPI.csproj",
+      "projectUniqueName": "D:\\Git Repository\\ShopOnline\\ShopDB.ShopAPI\\ShopDB.ShopAPI.csproj",
       "projectName": "ShopDB.ShopAPI",
-      "projectPath": "D:\\Net API\\ShopDB\\ShopDB.ShopAPI\\ShopDB.ShopAPI.csproj",
+      "projectPath": "D:\\Git Repository\\ShopOnline\\ShopDB.ShopAPI\\ShopDB.ShopAPI.csproj",
       "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "D:\\Net API\\ShopDB\\ShopDB.ShopAPI\\obj\\",
+      "outputPath": "D:\\Git Repository\\ShopOnline\\ShopDB.ShopAPI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -2470,8 +2470,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "D:\\Net API\\ShopDB\\ShopDB.Service\\ShopDB.Service.csproj": {
-              "projectPath": "D:\\Net API\\ShopDB\\ShopDB.Service\\ShopDB.Service.csproj"
+            "D:\\Git Repository\\ShopOnline\\ShopDB.Service\\ShopDB.Service.csproj": {
+              "projectPath": "D:\\Git Repository\\ShopOnline\\ShopDB.Service\\ShopDB.Service.csproj"
             }
           }
         }

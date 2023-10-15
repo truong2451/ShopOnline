@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "2DRqDyZREay50tRzLrZiyg2U9L+zFiJnok7eMvdSEqyV/pNscGYyfoZAeQEucg4oYoXFUo/4W9A3MSXS473fdQ==",
+  "dgSpecHash": "UWrBBS1YJBVsrrN7rc3lgvza/CfEDND6oKRN5UmVHdgG9e9GbmRvjKa1n/9VACoqrQESAdJzseZ15eA8a4roEQ==",
   "success": true,
-  "projectFilePath": "D:\\Net API\\ShopDB\\ShopDB.ShopAPI\\ShopDB.ShopAPI.csproj",
+  "projectFilePath": "D:\\Git Repository\\ShopOnline\\ShopDB.ShopAPI\\ShopDB.ShopAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Admin\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",

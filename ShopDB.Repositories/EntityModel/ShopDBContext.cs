@@ -91,13 +91,13 @@ namespace ShopDB.Repositories.EntityModel
                 entity.HasOne(d => d.Customer)
                     .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.CustomerId)
-                    .HasConstraintName("FK__Orders__Customer__440B1D61");
+                    .HasConstraintName("FK__Orders__Customer__44FF419A");
             });
 
             modelBuilder.Entity<OrderDetail>(entity =>
             {
                 entity.HasKey(e => new { e.OrderId, e.ProductId })
-                    .HasName("PK__OrderDet__08D097A352284E5D");
+                    .HasName("PK__OrderDet__08D097A38ECDE123");
 
                 entity.ToTable("OrderDetail");
 
@@ -107,13 +107,13 @@ namespace ShopDB.Repositories.EntityModel
                     .WithMany(p => p.OrderDetails)
                     .HasForeignKey(d => d.OrderId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__OrderDeta__Order__46E78A0C");
+                    .HasConstraintName("FK__OrderDeta__Order__47DBAE45");
 
                 entity.HasOne(d => d.Product)
                     .WithMany(p => p.OrderDetails)
                     .HasForeignKey(d => d.ProductId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__OrderDeta__Produ__47DBAE45");
+                    .HasConstraintName("FK__OrderDeta__Produ__48CFD27E");
             });
 
             modelBuilder.Entity<Product>(entity =>
@@ -133,13 +133,13 @@ namespace ShopDB.Repositories.EntityModel
                 entity.HasOne(d => d.Category)
                     .WithMany(p => p.Products)
                     .HasForeignKey(d => d.CategoryId)
-                    .HasConstraintName("FK__Product__Categor__403A8C7D");
+                    .HasConstraintName("FK__Product__Categor__412EB0B6");
             });
 
             modelBuilder.Entity<StaffAccount>(entity =>
             {
                 entity.HasKey(e => e.StaffId)
-                    .HasName("PK__StaffAcc__96D4AB17D7544AC7");
+                    .HasName("PK__StaffAcc__96D4AB17F147945E");
 
                 entity.ToTable("StaffAccount");
 
