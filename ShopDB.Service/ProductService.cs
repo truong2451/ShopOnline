@@ -46,6 +46,7 @@ namespace ShopDB.Service
         {
             try
             {
+                CheckValidation(product);
                 product.IsDelete = false;
                 return await repository.Add(product);
             }
@@ -77,6 +78,7 @@ namespace ShopDB.Service
         {
             try
             {
+                CheckValidation(product);
                 var item = await repository.Get(id);
                 if (item != null)
                 {
@@ -88,6 +90,60 @@ namespace ShopDB.Service
                     return await repository.Update(item.ProductId, item);
                 }
                 return false;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public IEnumerable<Product>? Search(string search)
+        {
+            try
+            {
+                List<Product> list = new List<Product>();
+                if (decimal.TryParse(search, out decimal price))
+                {
+                    var searchWithPrice = repository.GetAll(x => x.Price == price);
+                    foreach (var item in searchWithPrice)
+                    {
+                        list.Add(item);
+                    }
+                }
+                else
+                {
+                    var searchWithName = repository.GetAll(x => x.ProductName.Contains(search));
+                    foreach (var item in searchWithName)
+                    {
+                        list.Add(item);
+                    }
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public Product CheckValidation(Product product)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(product.ProductName))
+                {
+                    throw new Exception("Product Name Invalid");
+                }
+                if (product.Price < 0)
+                {
+                    throw new Exception("Price Invalid");
+                }
+                if (product.UnitInStock == null || product.UnitInStock < 0)
+                {
+                    throw new Exception("UnitInStock Invalid");
+                }
+
+                return product;
             }
             catch (Exception ex)
             {

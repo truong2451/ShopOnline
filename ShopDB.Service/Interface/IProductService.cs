@@ -14,5 +14,6 @@ namespace ShopDB.Service.Interface
         Task<bool> AddProduct(Product product);
         Task<bool> UpdateProduct(Guid id, Product product);
         Task<bool> DeleteProduct(Guid id);
+        IEnumerable<Product>? Search(string search);
     }
 }

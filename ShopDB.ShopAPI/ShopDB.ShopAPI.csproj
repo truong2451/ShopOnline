@@ -15,8 +15,4 @@
     <ProjectReference Include="..\ShopDB.Service\ShopDB.Service.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="ModelView\" />
-  </ItemGroup>
-
 </Project>

@@ -15,7 +15,7 @@ namespace ShopDB.Repositories.EntityModel
         public string ProductName { get; set; }
         public decimal Price { get; set; }
         public int? UnitInStock { get; set; }
-        public string Image { get; set; }
+        public string? Image { get; set; }
         public bool? IsDelete { get; set; }
 
         public virtual Category Category { get; set; }
