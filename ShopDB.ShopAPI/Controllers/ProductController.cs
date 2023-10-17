@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using ShopDB.Repositories.EntityModel;
 using ShopDB.Service.Interface;
 using ShopDB.ShopAPI.ModelView;
+using System.Security.Claims;
 
 namespace ShopDB.ShopAPI.Controllers
 {
@@ -25,7 +26,7 @@ namespace ShopDB.ShopAPI.Controllers
         {
             try
             {
-                if(search != null)
+                if (search != null)
                 {
                     return StatusCode(200, new
                     {
@@ -40,7 +41,7 @@ namespace ShopDB.ShopAPI.Controllers
                         Status = "Success",
                         Data = productService.GetAllProduct()
                     });
-                }                
+                }
             }
             catch (Exception ex)
             {
@@ -78,15 +79,27 @@ namespace ShopDB.ShopAPI.Controllers
         {
             try
             {
-                var product = mapper.Map<Product>(model);
-                var check = await productService.AddProduct(product);
-                return check ? StatusCode(200, new
+                var role = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role)?.Value;
+                if (role == CommonValues.ADMIN || role == CommonValues.STAFF)
                 {
-                    Message = "Add Success"
-                }) : StatusCode(500, new
+                    var product = mapper.Map<Product>(model);
+                    var check = await productService.AddProduct(product);
+                    return check ? StatusCode(200, new
+                    {
+                        Message = "Add Success"
+                    }) : StatusCode(500, new
+                    {
+                        Message = "Add Fail"
+                    });
+                }
+                else
                 {
-                    Message = "Add Fail"
-                });
+                    return StatusCode(400, new
+                    {
+                        Status = "Error",
+                        Message = "Role Denied"
+                    });
+                }
             }
             catch (Exception ex)
             {
@@ -103,26 +116,38 @@ namespace ShopDB.ShopAPI.Controllers
         {
             try
             {
-                var productDB = await productService.GetProductById(id);
-                if(productDB != null)
+                var role = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role)?.Value;
+                if (role == CommonValues.ADMIN || role == CommonValues.STAFF)
                 {
-                    var product = mapper.Map<Product>(model);
-                    var check = await productService.UpdateProduct(id, product);
-                    return check ? StatusCode(200, new
+                    var productDB = await productService.GetProductById(id);
+                    if (productDB != null)
                     {
-                        Message = "Udpate Success"
-                    }) : StatusCode(500, new
+                        var product = mapper.Map<Product>(model);
+                        var check = await productService.UpdateProduct(id, product);
+                        return check ? StatusCode(200, new
+                        {
+                            Message = "Udpate Success"
+                        }) : StatusCode(500, new
+                        {
+                            Message = "Update Fail"
+                        });
+                    }
+                    else
                     {
-                        Message = "Update Fail"
-                    });
+                        return StatusCode(404, new
+                        {
+                            Message = "Not Found Product"
+                        });
+                    }
                 }
                 else
                 {
-                    return StatusCode(404, new
+                    return StatusCode(400, new
                     {
-                        Message = "Not Found Product"
+                        Status = "Error",
+                        Message = "Role Denied"
                     });
-                }             
+                }
             }
             catch (Exception ex)
             {
@@ -139,23 +164,35 @@ namespace ShopDB.ShopAPI.Controllers
         {
             try
             {
-                var product = await productService.GetProductById(id);
-                if (product != null)
+                var role = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role)?.Value;
+                if(role == CommonValues.ADMIN || role == CommonValues.STAFF)
                 {
-                    var check = await productService.DeleteProduct(id);
-                    return check ? StatusCode(200, new
+                    var product = await productService.GetProductById(id);
+                    if (product != null)
                     {
-                        Message = "Delete Success"
-                    }) : StatusCode(500, new
+                        var check = await productService.DeleteProduct(id);
+                        return check ? StatusCode(200, new
+                        {
+                            Message = "Delete Success"
+                        }) : StatusCode(500, new
+                        {
+                            Message = "Delete Fail"
+                        });
+                    }
+                    else
                     {
-                        Message = "Delete Fail"
-                    });
+                        return StatusCode(404, new
+                        {
+                            Message = "Not Found Product"
+                        });
+                    }
                 }
                 else
                 {
-                    return StatusCode(404, new
+                    return StatusCode(400, new
                     {
-                        Message = "Not Found Product"
+                        Status = "Error",
+                        Message = "Role Denied"
                     });
                 }
             }

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using ShopDB.Repositories.EntityModel;
 using ShopDB.Service.Interface;
 using ShopDB.ShopAPI.ModelView;
+using System.Security.Claims;
 
 namespace ShopDB.ShopAPI.Controllers
 {
@@ -67,15 +68,27 @@ namespace ShopDB.ShopAPI.Controllers
         {
             try
             {
-                var category = mapper.Map<Category>(model);
-                var check = await categoryService.AddCategory(category);
-                return check ? StatusCode(200, new
+                var role = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role)?.Value;
+                if(role == CommonValues.ADMIN)
                 {
-                    Message = "Add Success"
-                }) : StatusCode(500, new
+                    var category = mapper.Map<Category>(model);
+                    var check = await categoryService.AddCategory(category);
+                    return check ? StatusCode(200, new
+                    {
+                        Message = "Add Success"
+                    }) : StatusCode(500, new
+                    {
+                        Message = "Add Fail"
+                    });
+                }
+                else
                 {
-                    Message = "Add Fail"
-                });
+                    return StatusCode(400, new
+                    {
+                        Status = "Error",
+                        Message = "Role Denied"
+                    });
+                }              
             }
             catch (Exception ex)
             {
@@ -92,26 +105,38 @@ namespace ShopDB.ShopAPI.Controllers
         {
             try
             {
-                var category = await categoryService.GetCategoryById(id);
-                if(category != null)
+                var role = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role)?.Value;
+                if (role == CommonValues.ADMIN)
                 {
-                    var map = mapper.Map<Category>(model);
-                    var check = await categoryService.UpdateCategory(id, map);
-                    return check ? StatusCode(200, new
+                    var category = await categoryService.GetCategoryById(id);
+                    if (category != null)
                     {
-                        Message = "Update Success"
-                    }) : StatusCode(500, new
+                        var map = mapper.Map<Category>(model);
+                        var check = await categoryService.UpdateCategory(id, map);
+                        return check ? StatusCode(200, new
+                        {
+                            Message = "Update Success"
+                        }) : StatusCode(500, new
+                        {
+                            Message = "Update Fail"
+                        });
+                    }
+                    else
                     {
-                        Message = "Update Fail"
-                    });
+                        return StatusCode(404, new
+                        {
+                            Message = "Not Found Category"
+                        });
+                    }
                 }
                 else
                 {
-                    return StatusCode(404, new
+                    return StatusCode(400, new
                     {
-                        Message = "Not Found Category"
+                        Status = "Error",
+                        Message = "Role Denied"
                     });
-                }                
+                }             
             }
             catch (Exception ex)
             {
@@ -128,25 +153,37 @@ namespace ShopDB.ShopAPI.Controllers
         {
             try
             {
-                var category = await categoryService.GetCategoryById(id);
-                if( category != null )
+                var role = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role)?.Value;
+                if (role == CommonValues.ADMIN)
                 {
-                    var check = await categoryService.DeleteCategory(id);
-                    return check ? StatusCode(200, new
+                    var category = await categoryService.GetCategoryById(id);
+                    if (category != null)
                     {
-                        Message = "Delete Success"
-                    }) : StatusCode(500, new
+                        var check = await categoryService.DeleteCategory(id);
+                        return check ? StatusCode(200, new
+                        {
+                            Message = "Delete Success"
+                        }) : StatusCode(500, new
+                        {
+                            Message = "Delete Fail"
+                        });
+                    }
+                    else
                     {
-                        Message = "Delete Fail"
-                    });
+                        return StatusCode(404, new
+                        {
+                            Message = "Not Found Category"
+                        });
+                    }
                 }
                 else
                 {
-                    return StatusCode(404, new
+                    return StatusCode(400, new
                     {
-                        Message = "Not Found Category"
+                        Status = "Error",
+                        Message = "Role Denied"
                     });
-                }              
+                }          
             }
             catch (Exception ex)
             {

@@ -63,6 +63,7 @@ namespace ShopDB.Service
                 var cus = await repository.Get(id);
                 if (cus != null)
                 {
+                    cus.IsActive = false;
                     cus.IsDelete = true;
                     return await repository.Update(id, cus);
                 }

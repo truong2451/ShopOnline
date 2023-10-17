@@ -46,6 +46,8 @@ namespace ShopDB.Service
         {
             try
             {
+                staffAccount.Role = 1;
+                staffAccount.IsActive = true;
                 staffAccount.IsDelete = false;
                 return await repository.Add(staffAccount);
             }
@@ -92,6 +94,25 @@ namespace ShopDB.Service
             }
         }
 
+        public async Task<bool> DeleteStaff(Guid id)
+        {
+            try
+            {
+                var account = await repository.Get(id);
+                if (account != null)
+                {
+                    account.IsActive = false;
+                    account.IsDelete = true;
+                    return await repository.Update(account.StaffId, account);
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         public async Task<bool> ChangePasswordStaff(Guid id, string oldPassword, string newPassword)
         {
             try
@@ -106,6 +127,23 @@ namespace ShopDB.Service
                     }
                 }
                 return false;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public StaffAccount CheckLogin(string username)
+        {
+            try
+            {
+                var account = repository.GetAll(x => x.Username == username).FirstOrDefault();
+                if(account != null)
+                {
+                    return account;
+                }
+                return null;
             }
             catch (Exception ex)
             {
