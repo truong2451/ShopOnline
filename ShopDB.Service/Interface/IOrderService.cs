@@ -10,9 +10,7 @@ namespace ShopDB.Service.Interface
     public interface IOrderService
     {
         IEnumerable<Order> GetAllOrder();
-        Task<Order> GetOrderById(Guid id);
-        Task<bool> AddOrder(Order order);
-        Task<bool> UpdateOrder(Guid id, Order order);
-        Task<bool> DeleteOrder(Guid id);
+        //Task<Order> GetOrderByCustomerId(Guid id);
+        Task<bool> Payment(List<OrderDetail> list);
     }
 }

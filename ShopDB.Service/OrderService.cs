@@ -1,4 +1,5 @@
 ﻿using ShopDB.Repositories.EntityModel;
+using ShopDB.Repositories.Repository.Interface;
 using ShopDB.Service.Interface;
 using System;
 using System.Collections.Generic;
@@ -10,29 +11,67 @@ namespace ShopDB.Service
 {
     public class OrderService : IOrderService
     {
-        public Task<bool> AddOrder(Order order)
-        {
-            throw new NotImplementedException();
-        }
+        private readonly IOrderRepository repository;
+        private readonly IOrderDetailRepository detailRepository;
 
-        public Task<bool> DeleteOrder(Guid id)
+        public OrderService(IOrderRepository repository, IOrderDetailRepository detailRepository)
         {
-            throw new NotImplementedException();
+            this.repository = repository;
+            this.detailRepository = detailRepository;
         }
 
         public IEnumerable<Order> GetAllOrder()
         {
-            throw new NotImplementedException();
+            try
+            {
+                return repository.GetAll(x => x.IsDelete == false);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
-        public Task<Order> GetOrderById(Guid id)
-        {
-            throw new NotImplementedException();
-        }
+        //public Task<Order> GetOrderByCustomerId(Guid id)
+        //{
+        //    try
+        //    {
 
-        public Task<bool> UpdateOrder(Guid id, Order order)
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception(ex.Message);
+        //    }
+        //}
+
+        public async Task<bool> Payment(List<OrderDetail> list)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Order order = new Order();
+                order.TotalPrice = 0;
+                order.OrderDate = DateTime.Now;
+                order.RequiredDate = DateTime.Now;
+                order.ShippedDate = DateTime.Now;
+                order.IsDelete = false;
+                var addOrders = await repository.Add(order);
+                var odersDB = repository.GetAll(x => x.IsDelete == false).LastOrDefault();
+                var addOrderDetail = false;
+
+                if(addOrders)
+                {
+                    foreach (var orderDetail in list)
+                    {
+                        orderDetail.OrderId = odersDB.OrderId;
+                        addOrderDetail = await detailRepository.Add(orderDetail);
+                    }
+                }
+                return addOrderDetail;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }
