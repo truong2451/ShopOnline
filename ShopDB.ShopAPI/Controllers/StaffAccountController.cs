@@ -261,9 +261,31 @@ namespace ShopDB.ShopAPI.Controllers
                     {
                         if (checkAccount.Password == password)
                         {
-                            return StatusCode(200, new
+                            if(checkAccount.Role == 0)
                             {
-                                Message = "Login Success"
+                                return StatusCode(200, new
+                                {
+                                    Messgae = "Login Admin Success",
+                                    Role = "Admin",
+                                    Data = new { },
+                                    Token = JWTMange.GetToken(checkAccount.StaffId.ToString(), "Admin")
+                                }); 
+                            }
+
+                            if(checkAccount.Role == 1)
+                            {
+                                return StatusCode(200, new
+                                {
+                                    Messgae = "Login Staff Success",
+                                    Role = "Staff",
+                                    Data = new { },
+                                    Token = JWTMange.GetToken(checkAccount.StaffId.ToString(), "Staff")
+                                });
+                            }
+
+                            return StatusCode(400, new
+                            {
+                                Messgae = "Login Fail"
                             });
                         }
                         else

@@ -15,5 +15,6 @@ namespace ShopDB.Service.Interface
         Task<bool> UpdateCustomer(Guid id, Customer customer);
         Task<bool> DeleteCustomer(Guid id);
         Task<bool> ChangePassword(Guid id, string oldPassword, string newPassword);
+        Customer CheckLogin(string username);
     }
 }

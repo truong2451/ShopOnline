@@ -107,6 +107,87 @@ namespace ShopDB.ShopAPI.Controllers
             }
         }
 
+        [HttpPost]
+        public async Task<IActionResult> LoginCustomer(string username, string password)
+        {
+            try
+            {
+                var check = customerService.CheckLogin(username);
+                if (check != null)
+                {
+                    if (check.Password == password)
+                    {
+                        return StatusCode(200, new
+                        {
+                            Message = "Login Customer Success",
+                            Role = "Customer",
+                            Data = new {},
+                            Token = JWTMange.GetToken(check.CustomerId.ToString(), "Customer")
+                        });
+                    }
+                    else
+                    {
+                        return StatusCode(400, new
+                        {
+                            Message = "Password Invalid"
+                        });
+                    }
+                }
+                else
+                {
+                    return StatusCode(404, new
+                    {
+                        Message = "Not Found Account"
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    Status = "Error",
+                    Message = ex.Message
+                });
+            }
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> ChangePwd(string oldPwd, string newPwd)
+        {
+            try
+            {
+                var role = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role)?.Value;
+                if (role == CommonValues.CUSTOMER)
+                {
+                    var cusId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
+                    var check =await customerService.ChangePassword(Guid.Parse(cusId), oldPwd, newPwd);
+                    return check ? StatusCode(200, new
+                    {
+                        Message = "Change Password Success"
+                    }) : StatusCode(200, new
+                    {
+                        Message = "Change Password Fail"
+                    });
+                }
+                else
+                {
+                    return StatusCode(500, new
+                    {
+                        Status = "Error",
+                        Message = "Role Denied"
+                    });
+                }    
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    Status = "Error",
+                    Message = ex.Message
+                });
+            }
+        }
+
         //---------------------------------------------------------------------------------------------------------------------
         //---------------------------------------------------------------------------------------------------------------------
         [HttpGet]

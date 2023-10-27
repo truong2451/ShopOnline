@@ -44,11 +44,12 @@ namespace ShopDB.Service
         //    }
         //}
 
-        public async Task<bool> Payment(List<OrderDetail> list)
+        public async Task<bool> Payment(Guid cusId, List<OrderDetail> list)
         {
             try
             {
                 Order order = new Order();
+                order.CustomerId = cusId;
                 order.TotalPrice = 0;
                 order.OrderDate = DateTime.Now;
                 order.RequiredDate = DateTime.Now;
@@ -63,6 +64,7 @@ namespace ShopDB.Service
                     foreach (var orderDetail in list)
                     {
                         orderDetail.OrderId = odersDB.OrderId;
+                        orderDetail.IsDelete = false;
                         addOrderDetail = await detailRepository.Add(orderDetail);
                     }
                 }

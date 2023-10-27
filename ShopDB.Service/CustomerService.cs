@@ -115,5 +115,22 @@ namespace ShopDB.Service
                 throw new Exception(ex.Message);
             }
         }
+
+        public Customer CheckLogin(string username)
+        {
+            try
+            {
+                var account = repository.GetAll(x => x.Username == username).FirstOrDefault();
+                if (account != null)
+                {
+                    return account;
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

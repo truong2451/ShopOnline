@@ -11,6 +11,6 @@ namespace ShopDB.Service.Interface
     {
         IEnumerable<Order> GetAllOrder();
         //Task<Order> GetOrderByCustomerId(Guid id);
-        Task<bool> Payment(List<OrderDetail> list);
+        Task<bool> Payment(Guid cusId, List<OrderDetail> list);
     }
 }

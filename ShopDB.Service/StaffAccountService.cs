@@ -57,24 +57,6 @@ namespace ShopDB.Service
             }
         }
 
-        public async Task<bool> DeleteStaffAccount(Guid id)
-        {
-            try
-            {
-                var account = await repository.Get(id);
-                if (account != null)
-                {
-                    account.IsDelete = true;
-                    return await repository.Update(account.StaffId, account);
-                }
-                return false;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
-
         public async Task<bool> UpdateProfileStaff(Guid id, StaffAccount staffAccount)
         {
             try
@@ -94,7 +76,7 @@ namespace ShopDB.Service
             }
         }
 
-        public async Task<bool> DeleteStaff(Guid id)
+        public async Task<bool> DeleteStaffAccount(Guid id)
         {
             try
             {
