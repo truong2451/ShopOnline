@@ -17,7 +17,7 @@ namespace ShopDB.Repositories.Repository
 
         public GenericRepository(ShopDBContext context)
         {
-            if (context == null)
+            if (this.context == null)
             {
                 this.context = context;
             }

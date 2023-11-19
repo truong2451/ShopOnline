@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login V18</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" type="image/png" href="@Url.Content("~/images/icons/favicon.ico")" />
+
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/vendor/bootstrap/css/bootstrap.min.css")">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/fonts/font-awesome-4.7.0/css/font-awesome.min.css")">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/fonts/Linearicons-Free-v1.0.0/icon-font.min.css")">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/vendor/animate/animate.css")">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/vendor/css-hamburgers/hamburgers.min.css")">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/vendor/animsition/css/animsition.min.css")">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/vendor/select2/select2.min.css")">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/vendor/daterangepicker/daterangepicker.css")">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/css/util.css")">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/css/main.css")">
+
+    <meta name="robots" content="noindex, follow">
+    <script nonce="7d86251c-3b4e-4814-b109-99bad2be16c6">(function (w, d) { !function (bb, bc, bd, be) { bb[bd] = bb[bd] || {}; bb[bd].executed = []; bb.zaraz = { deferred: [], listeners: [] }; bb.zaraz.q = []; bb.zaraz._f = function (bf) { return async function () { var bg = Array.prototype.slice.call(arguments); bb.zaraz.q.push({ m: bf, a: bg }) } }; for (const bh of ["track", "set", "debug"]) bb.zaraz[bh] = bb.zaraz._f(bh); bb.zaraz.init = () => { var bi = bc.getElementsByTagName(be)[0], bj = bc.createElement(be), bk = bc.getElementsByTagName("title")[0]; bk && (bb[bd].t = bc.getElementsByTagName("title")[0].text); bb[bd].x = Math.random(); bb[bd].w = bb.screen.width; bb[bd].h = bb.screen.height; bb[bd].j = bb.innerHeight; bb[bd].e = bb.innerWidth; bb[bd].l = bb.location.href; bb[bd].r = bc.referrer; bb[bd].k = bb.screen.colorDepth; bb[bd].n = bc.characterSet; bb[bd].o = (new Date).getTimezoneOffset(); if (bb.dataLayer) for (const bo of Object.entries(Object.entries(dataLayer).reduce(((bp, bq) => ({ ...bp[1], ...bq[1] })), {}))) zaraz.set(bo[0], bo[1], { scope: "page" }); bb[bd].q = []; for (; bb.zaraz.q.length;) { const br = bb.zaraz.q.shift(); bb[bd].q.push(br) } bj.defer = !0; for (const bs of [localStorage, sessionStorage]) Object.keys(bs || {}).filter((bu => bu.startsWith("_zaraz_"))).forEach((bt => { try { bb[bd]["z_" + bt.slice(7)] = JSON.parse(bs.getItem(bt)) } catch { bb[bd]["z_" + bt.slice(7)] = bs.getItem(bt) } })); bj.referrerPolicy = "origin"; bj.src = "/cdn-cgi/zaraz/s.js?z=" + btoa(encodeURIComponent(JSON.stringify(bb[bd]))); bi.parentNode.insertBefore(bj, bi) };["complete", "interactive"].includes(bc.readyState) ? zaraz.init() : bb.addEventListener("DOMContentLoaded", zaraz.init) }(w, d, "zarazData", "script"); })(window, document);</script>
+</head>
+<body style="background-color: #666666;">
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+                <form asp-action="Login" method="post" class="login100-form validate-form">
+                    <span class="login100-form-title p-b-43">
+                        Login to continue
+                    </span>
+                    @* <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz"> *@
+                    <div class="wrap-input100 validate-input">
+                        <input name="username" class="input100" type="text">
+                        <span class="focus-input100"></span>
+                        <span for="username" class="label-input100">Username</span>
+                    </div>
+                    <div class="wrap-input100 validate-input" data-validate="Password is required">
+                        <input name="password" class="input100" type="password">
+                        <span class="focus-input100"></span>
+                        <span for="password" class="label-input100" >Password</span>
+                    </div>
+                    <div class="flex-sb-m w-full p-t-3 p-b-32">
+                        <div class="contact100-form-checkbox">
+                            <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
+                            <label class="label-checkbox100" for="ckb1">
+                                Remember me
+                            </label>
+                        </div>
+                        <div>
+                            <a href="#" class="txt1">
+                                Forgot Password?
+                            </a>
+                        </div>
+                    </div>
+
+                    <div>
+                        @if(TempData["Login"] != null)
+                        {
+                            <h3 style="color: red;">@TempData["Login"]</h3>
+                        }
+                    </div>
+
+                    <div class="container-login100-form-btn">
+                        <button type="submit" class="login100-form-btn">
+                            Login
+                        </button>
+                    </div>
+                    <div class="text-center p-t-46 p-b-20">
+                        <span class="txt2">
+                            or sign up using
+                        </span>
+                    </div>
+                    <div class="login100-form-social flex-c-m">
+                        <a href="#" class="login100-form-social-item flex-c-m bg1 m-r-5">
+                            <i class="fa fa-facebook-f" aria-hidden="true"></i>
+                        </a>
+                        <a href="#" class="login100-form-social-item flex-c-m bg2 m-r-5">
+                            <i class="fa fa-twitter" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </form>
+                <div class="login100-more" style="background-image: url('@Url.Content("~/images/bg-01.jpg")');">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Các đoạn mã script với đường dẫn sử dụng Url.Content -->
+    <script src="@Url.Content("~/vendor/jquery/jquery-3.2.1.min.js")"></script>
+    <script src="@Url.Content("~/vendor/animsition/js/animsition.min.js")"></script>
+
+    <script src="@Url.Content("~/vendor/bootstrap/js/popper.js")"></script>
+    <script src="@Url.Content("~/vendor/bootstrap/js/bootstrap.min.js")"></script>
+
+    <script src="@Url.Content("~/vendor/select2/select2.min.js")"></script>
+
+    <script src="@Url.Content("~/vendor/daterangepicker/moment.min.js")"></script>
+    <script src="@Url.Content("~/vendor/daterangepicker/daterangepicker.js")"></script>
+
+    <script src="@Url.Content("~/vendor/countdowntime/countdowntime.js")"></script>
+
+    <script src="@Url.Content("~/js/main.js")"></script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-23581568-13');
+    </script>
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v84a3a4012de94ce1a686ba8c167c359c1696973893317" integrity="sha512-euoFGowhlaLqXsPWQ48qSkBSCFs3DPRyiwVu3FjR96cMPx+Fr+gpWRhIafcHwqwCqWS42RZhIudOvEI+Ckf6MA==" data-cf-beacon='{"rayId":"82444581b8821056","version":"2023.10.0","token":"cd0b4b3a733644fc843ef0b185f98241"}' crossorigin="anonymous"></script>
+</body>
+</html>

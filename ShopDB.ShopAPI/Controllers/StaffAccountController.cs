@@ -8,7 +8,7 @@ using System.Security.Claims;
 
 namespace ShopDB.ShopAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class StaffAccountController : ControllerBase
     {
@@ -41,7 +41,7 @@ namespace ShopDB.ShopAPI.Controllers
                 }
                 else
                 {
-                    return StatusCode(400, new
+                    return StatusCode(403, new
                     {
                         Status = "Error",
                         Message = "Role Denied"
@@ -89,7 +89,7 @@ namespace ShopDB.ShopAPI.Controllers
                 }
                 else
                 {
-                    return StatusCode(400, new
+                    return StatusCode(403, new
                     {
                         Status = "Error",
                         Message = "Role Denied"
@@ -136,7 +136,7 @@ namespace ShopDB.ShopAPI.Controllers
                 }
                 else
                 {
-                    return StatusCode(400, new
+                    return StatusCode(403, new
                     {
                         Status = "Error",
                         Message = "Role Denied"
@@ -184,7 +184,7 @@ namespace ShopDB.ShopAPI.Controllers
                 }
                 else
                 {
-                    return StatusCode(400, new
+                    return StatusCode(403, new
                     {
                         Status = "Error",
                         Message = "Role Denied"
@@ -233,7 +233,7 @@ namespace ShopDB.ShopAPI.Controllers
                 }
                 else
                 {
-                    return StatusCode(400, new
+                    return StatusCode(403, new
                     {
                         Status = "Error",
                         Message = "Role Denied"
@@ -250,7 +250,8 @@ namespace ShopDB.ShopAPI.Controllers
             }
         }
 
-        public async Task<IActionResult> Login(string username, string password)
+        [HttpPost]
+        public IActionResult Login(string username, string password)
         {
             try
             {
@@ -265,10 +266,10 @@ namespace ShopDB.ShopAPI.Controllers
                             {
                                 return StatusCode(200, new
                                 {
-                                    Messgae = "Login Admin Success",
+                                    Message = "Login Admin Success",
                                     Role = "Admin",
                                     Data = new { },
-                                    Token = JWTMange.GetToken(checkAccount.StaffId.ToString(), "Admin")
+                                    Token = JWTMange.GetToken("" + checkAccount.StaffId, "Admin")
                                 }); 
                             }
 
@@ -276,16 +277,16 @@ namespace ShopDB.ShopAPI.Controllers
                             {
                                 return StatusCode(200, new
                                 {
-                                    Messgae = "Login Staff Success",
+                                    Message = "Login Staff Success",
                                     Role = "Staff",
                                     Data = new { },
-                                    Token = JWTMange.GetToken(checkAccount.StaffId.ToString(), "Staff")
+                                    Token = JWTMange.GetToken("" + checkAccount.StaffId, "Staff")
                                 });
                             }
-
+                            
                             return StatusCode(400, new
                             {
-                                Messgae = "Login Fail"
+                                Message = "Login Fail"
                             });
                         }
                         else
@@ -298,7 +299,7 @@ namespace ShopDB.ShopAPI.Controllers
                     }
                     else
                     {
-                        return StatusCode(400, new
+                        return StatusCode(401, new
                         {
                             Message = "You do not have permission"
                         });

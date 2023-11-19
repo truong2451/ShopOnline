@@ -4,25 +4,28 @@ using Microsoft.AspNetCore.Mvc;
 using ShopDB.Repositories.EntityModel;
 using ShopDB.Service.Interface;
 using ShopDB.ShopAPI.ModelView;
+using System.Net.Mail;
 using System.Security.Claims;
 
 namespace ShopDB.ShopAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class CustomerController : ControllerBase
     {
         private readonly ICustomerService customerService;
         private readonly IMapper mapper;
+        private readonly IConfiguration configuration;
 
-        public CustomerController(ICustomerService customerService, IMapper mapper)
+        public CustomerController(ICustomerService customerService, IMapper mapper, IConfiguration configuration)
         {
             this.customerService = customerService;
             this.mapper = mapper;
+            this.configuration = configuration;
         }
 
         [HttpPost]
-        public async Task<IActionResult> SignIn(CustomerVM model)
+        public async Task<IActionResult> SignUp(CustomerVM model)
         {
             try
             {
@@ -30,10 +33,11 @@ namespace ShopDB.ShopAPI.Controllers
                 if (role == CommonValues.CUSTOMER)
                 {
                     var customer = mapper.Map<Customer>(model);
+
                     var check = await customerService.SignUp(customer);
                     return check ? StatusCode(200, new
                     {
-                        Message = "Add Success"
+                        Message = "Add Success",
                     }) : StatusCode(500, new
                     {
                         Message = "Add Fail"
@@ -108,7 +112,7 @@ namespace ShopDB.ShopAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> LoginCustomer(string username, string password)
+        public IActionResult LoginCustomer(string username, string password)
         {
             try
             {
@@ -191,7 +195,7 @@ namespace ShopDB.ShopAPI.Controllers
         //---------------------------------------------------------------------------------------------------------------------
         //---------------------------------------------------------------------------------------------------------------------
         [HttpGet]
-        public async Task<IActionResult> GetAllCustomer()
+        public IActionResult GetAllCustomer()
         {
             try
             {
@@ -262,7 +266,7 @@ namespace ShopDB.ShopAPI.Controllers
                 }
                 else
                 {
-                    return StatusCode(400, new
+                    return StatusCode(403, new
                     {
                         Status = "Error",
                         Message = "Role Denied"
@@ -279,6 +283,74 @@ namespace ShopDB.ShopAPI.Controllers
             }
         }
 
+        [HttpPost]
+        public async Task<IActionResult> SendMail(string _to, string _subject, string _body)
+        {
+            try
+            {
+                var smtpServer = configuration["SmtpConfig:SmtpServer"];
+                var smtpPort = int.Parse(configuration["SmtpConfig:SmtpPort"]);
+                var username = configuration["SmtpConfig:Username"];
+                var password = configuration["SmtpConfig:Password"];
 
+                SmtpClient client = new SmtpClient(smtpServer, smtpPort)
+                {
+                    Credentials = new System.Net.NetworkCredential(username, password),
+                    EnableSsl = true
+                };
+
+                var checkSendMail = await customerService.VerifyEmail(username, _to, _subject, _body, client);
+                return checkSendMail ? StatusCode(200, new
+                {
+                    Message = $"Send Mail Success To {_to}"
+                }) : StatusCode(500, new
+                {
+                    Message = $"Send Mail Fail To {_to}"
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    Status = "Error",
+                    Message = ex.Message
+                });
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ForgetPasswordByEmail(string emailAddress)
+        {
+            try
+            {               
+                var smtpServer = configuration["SmtpConfig:SmtpServer"];
+                var smtpPort = int.Parse(configuration["SmtpConfig:SmtpPort"]);
+                var username = configuration["SmtpConfig:Username"];
+                var password = configuration["SmtpConfig:Password"];
+
+                SmtpClient client = new SmtpClient(smtpServer, smtpPort)
+                {
+                    Credentials = new System.Net.NetworkCredential(username, password),
+                    EnableSsl = true
+                };
+
+                var check = await customerService.ForgetPwd(username, emailAddress, "New Password", client);
+                return check ? StatusCode(200, new
+                {
+                    Message = $"Get New Password From {emailAddress} Success"
+                }) : StatusCode(200, new
+                {
+                    Message = $"Get New Password From {emailAddress} Fail"
+                });
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    Status = "Error",
+                    Message = ex.Message
+                });
+            }
+        }
     }
 }

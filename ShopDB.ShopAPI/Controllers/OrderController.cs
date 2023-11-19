@@ -7,7 +7,7 @@ using System.Security.Claims;
 
 namespace ShopDB.ShopAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class OrderController : ControllerBase
     {
@@ -21,7 +21,7 @@ namespace ShopDB.ShopAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public IActionResult GetAll()
         {
             try
             {
@@ -86,7 +86,7 @@ namespace ShopDB.ShopAPI.Controllers
                     }
                     else
                     {
-                        return StatusCode(500, new
+                        return StatusCode(403, new
                         {
                             Status = "Error",
                             Message = "Role Denied"

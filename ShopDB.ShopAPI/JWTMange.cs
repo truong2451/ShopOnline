@@ -41,7 +41,7 @@ namespace ShopDB.ShopAPI
         private static JwtTokens GenerateJWTToken(string id, string role)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var tokenKey = Encoding.UTF8.GetBytes(config["JwtOptions:Key"]);
+            var tokenKey = Encoding.UTF8.GetBytes(config["JWT:Key"]);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new System.Security.Claims.ClaimsIdentity(new Claim[]
@@ -66,7 +66,7 @@ namespace ShopDB.ShopAPI
         public static ClaimsPrincipal GetPrincipalFromExpiredToken(string token)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var tokenKey = Encoding.UTF8.GetBytes(config["JwtOptions:Key"]);
+            var tokenKey = Encoding.UTF8.GetBytes(config["JWT:Key"]);
 
             var tokenValidationParameters = new TokenValidationParameters
             {
